@@ -1,13 +1,13 @@
-import { SpreadsheetRepository, GithubRepository, SlackRepository } from './repository'
+import { GithubRepository, SlackRepository } from './repository'
 
 export class CheckUsecase {
   checkNotifications() {
-    const shRepo = new SpreadsheetRepository()
+    const propertys = PropertiesService.getScriptProperties()
     const githubRepo = new GithubRepository(
-      shRepo.getEnvByKey('github_user'),
-      shRepo.getEnvByKey('github_token')
+      propertys.getProperty('github_user'),
+      propertys.getProperty('github_token')
     )
-    const slackRepo = new SlackRepository(shRepo.getEnvByKey('slack_webhook'))
+    const slackRepo = new SlackRepository(propertys.getProperty('slack_webhook'))
 
     const notifications = githubRepo.getNotifications()
     notifications
@@ -40,8 +40,7 @@ export class CheckUsecase {
       })
 
     if (notifications.length > 0) {
-      // githubRepo.notificationToRead()
-      Logger.log('put notifications')
+      githubRepo.notificationToRead()
     }
   }
 }

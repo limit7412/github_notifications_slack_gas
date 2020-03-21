@@ -1,25 +1,4 @@
-import { GithubNotifications, GithubSubject, GithubComment } from './models'
-
-export class SpreadsheetRepository {
-  getEnvByKey(key: string): string {
-    const sheet = SpreadsheetApp
-      .getActiveSpreadsheet()
-      .getSheetByName('env')
-    const rows = sheet
-      .getDataRange()
-      .getValues()
-
-    let val: string
-    for (const row of rows) {
-      val = row[1]
-      if (row[0] === key) {
-        break
-      }
-    }
-
-    return val
-  }
-}
+import { GithubNotifications, GithubSubject, GithubComment, SlackAttachments } from './models'
 
 export class GithubRepository {
   auth: string
@@ -28,7 +7,7 @@ export class GithubRepository {
   }
 
   getNotifications(): GithubNotifications[] {
-    const response = UrlFetchApp.fetch("https://api.github.com/notifications?all=true&since=2019-10-01T23:39:01Z", {
+    const response = UrlFetchApp.fetch("https://api.github.com/notifications", {
       "method": "get",
       "headers": { "Authorization": this.auth },
       "muteHttpExceptions": true
@@ -63,7 +42,7 @@ export class SlackRepository {
     this.url = url
   }
 
-  sendPost(post) {
+  sendPost(post: SlackAttachments) {
     UrlFetchApp.fetch(this.url, {
       "method": "post",
       "contentType": "application/json",

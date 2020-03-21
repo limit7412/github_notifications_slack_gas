@@ -30,7 +30,6 @@ export type GithubUser = {
   html_url: string,
 }
 
-
 export type SlackAttachments = {
   fallback: string,
   author_name: string,
