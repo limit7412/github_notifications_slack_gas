@@ -1,16 +1,16 @@
 
 
 export class SpreadsheetRepository {
-  id: string
+  // id: string
 
-  constructor(id: string) {
-    this.id = id
-  }
+  // constructor(id: string) {
+  //   this.id = id
+  // }
 
-  findValueByKey(key: string): string {
+  getEnvByKey(key: string): string {
     const sheet = SpreadsheetApp
       .getActiveSpreadsheet()
-      .getSheetByName('other')
+      .getSheetByName('env')
     const rows = sheet
       .getDataRange()
       .getValues()
