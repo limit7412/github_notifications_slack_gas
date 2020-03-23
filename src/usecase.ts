@@ -3,10 +3,7 @@ import { GithubRepository, SlackRepository } from './repository'
 export class CheckUsecase {
   checkNotifications() {
     const propertys = PropertiesService.getScriptProperties()
-    const githubRepo = new GithubRepository(
-      propertys.getProperty('github_user'),
-      propertys.getProperty('github_token')
-    )
+    const githubRepo = new GithubRepository(propertys.getProperty('github_token'))
     const slackRepo = new SlackRepository(propertys.getProperty('slack_webhook'))
 
     const notifications = githubRepo.getNotifications()

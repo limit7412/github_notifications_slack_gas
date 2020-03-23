@@ -2,8 +2,8 @@ import { GithubNotifications, GithubSubject, GithubComment, SlackAttachments } f
 
 export class GithubRepository {
   auth: string
-  constructor(user: string, token: string) {
-    this.auth = `Basic ${Utilities.base64Encode(`${user}:${token}`)}`
+  constructor(token: string) {
+    this.auth = `token ${token}`
   }
 
   getNotifications(): GithubNotifications[] {
