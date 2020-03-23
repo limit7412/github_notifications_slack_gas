@@ -18,7 +18,6 @@ $ claspopen
   - ファイル -> プロジェクトのプロパティ -> スクリプトのプロパティ
 
 ```
-github_user: githubのbasic認証のユーザー名
-github_token: githubのbasic認証のパスワード
-slack_webhook: webhokのurl
+github_token: githubのPersonal access tokens
+slack_webhook: webhookのurl
 ```
