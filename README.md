@@ -11,7 +11,7 @@ $ clasp login
 $ clasp create
 ? Create which script? standalone
 $ clasp push
-$ claspopen
+$ clasp open
 ```
 
 ## 環境変数的なやつ
