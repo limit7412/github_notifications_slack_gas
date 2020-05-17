@@ -12,17 +12,20 @@ export class GithubRepository {
       "headers": { "Authorization": this.auth },
       "muteHttpExceptions": true
     })
+    Logger.log(`notifications body: ${response.getContentText()}`)
 
     return JSON.parse(response.getContentText())
   }
 
   getComment(subject: GithubSubject): GithubComment {
     const url = subject.latest_comment_url != null ? subject.latest_comment_url : subject.url
+    Logger.log(`comment url: ${url}`)
     const response = UrlFetchApp.fetch(url, {
       "method": "get",
       "headers": { "Authorization": this.auth },
       "muteHttpExceptions": true
     })
+    Logger.log(`comment body: ${response.getContentText()} `)
 
     return JSON.parse(response.getContentText())
   }
