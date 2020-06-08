@@ -17,6 +17,7 @@ export class GithubRepository {
 
       return JSON.parse(response.getContentText())
     } catch (error) {
+      // NOTE: github api occasionally return Unexpected error (rate of occurrence: 0.04%)
       Logger.log(`failed to get github notifications: ${error.message}`)
       return []
     }
