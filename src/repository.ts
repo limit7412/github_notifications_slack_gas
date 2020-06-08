@@ -7,14 +7,19 @@ export class GithubRepository {
   }
 
   getNotifications(): GithubNotifications[] {
-    const response = UrlFetchApp.fetch("https://api.github.com/notifications", {
-      "method": "get",
-      "headers": { "Authorization": this.auth },
-      "muteHttpExceptions": true
-    })
-    Logger.log(`notifications body: ${response.getContentText()}`)
+    try {
+      const response = UrlFetchApp.fetch("https://api.github.com/notifications", {
+        "method": "get",
+        "headers": { "Authorization": this.auth },
+        "muteHttpExceptions": true
+      })
+      Logger.log(`notifications body: ${response.getContentText()}`)
 
-    return JSON.parse(response.getContentText())
+      return JSON.parse(response.getContentText())
+    } catch (error) {
+      Logger.log(`failed to get github notifications: ${error.message}`)
+      return []
+    }
   }
 
   getComment(subject: GithubSubject): GithubComment {
