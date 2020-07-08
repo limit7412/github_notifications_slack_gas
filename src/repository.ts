@@ -26,6 +26,11 @@ export class GithubRepository {
   getComment(subject: GithubSubject): GithubComment {
     const url = subject.latest_comment_url != null ? subject.latest_comment_url : subject.url
     Logger.log(`comment url: ${url}`)
+    if (url === "") {
+      return JSON.parse("{}")
+    }
+
+
     const response = UrlFetchApp.fetch(url, {
       "method": "get",
       "headers": { "Authorization": this.auth },
