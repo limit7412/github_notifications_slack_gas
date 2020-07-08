@@ -30,7 +30,6 @@ export class GithubRepository {
       return JSON.parse("{}")
     }
 
-
     const response = UrlFetchApp.fetch(url, {
       "method": "get",
       "headers": { "Authorization": this.auth },
