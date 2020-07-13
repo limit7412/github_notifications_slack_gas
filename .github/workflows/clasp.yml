@@ -17,11 +17,8 @@ jobs:
     - name: setup node.js
       uses: actions/setup-node@v1
 
-    - name: install sls
+    - name: install clasp
       run: npm i @google/clasp -g
-
-    - name: install aws
-      run: apt-get -y update && apt-get -y install awscli
 
     - name: configure aws
       uses: aws-actions/configure-aws-credentials@v1
