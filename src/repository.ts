@@ -14,6 +14,10 @@ export class GithubRepository {
         "muteHttpExceptions": true
       })
       Logger.log(`notifications body: ${response.getContentText()}`)
+      if (response.getResponseCode() >= 500) {
+        Logger.log(`return server error from api`)
+        return []
+      }
 
       return JSON.parse(response.getContentText())
     } catch (error) {
@@ -36,6 +40,10 @@ export class GithubRepository {
       "muteHttpExceptions": true
     })
     Logger.log(`comment body: ${response.getContentText()} `)
+    if (response.getResponseCode() >= 500) {
+      Logger.log(`return server error from api`)
+      return JSON.parse("{}")
+    }
 
     return JSON.parse(response.getContentText())
   }
