@@ -18,6 +18,7 @@ export class CheckUsecase {
           "mention",
           "team_mention",
           "review_requested",
+          "ci_activity"
         ].indexOf(item.reason) >= 0 ? "<!here> " : ""
 
         const subject = `[${item.subject.type}] notice from github.`

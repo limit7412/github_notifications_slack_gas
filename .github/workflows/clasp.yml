@@ -1,0 +1,39 @@
+name: clasp
+
+on:
+  push:
+    branches: [ develop, master ]
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: checkout
+      uses: actions/checkout@v1
+
+    - name: setup node.js
+      uses: actions/setup-node@v1
+
+    - name: install clasp
+      run: npm i @google/clasp -g
+
+    - name: configure aws
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-1
+
+    - name: get clasprc
+      run: |
+        aws s3 cp s3://limit7412-workflow-env/clasp/dev/.clasprc.json ~/
+
+    - name: get setting
+      run: |
+        aws s3 cp s3://limit7412-workflow-env/github_notifications_slack_gas/slack_to_jira/dev/.clasp.json .
+
+    - name: push
+      run: clasp push
