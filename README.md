@@ -1,4 +1,6 @@
-# github_notifications_slack_gas ![clasp](https://github.com/limit7412/github_notifications_slack_gas/workflows/clasp/badge.svg)
+# github_notifications_slack_gas 
+![clasp](https://github.com/limit7412/github_notifications_slack_gas/workflows/clasp/badge.svg)
+
 GitHubの通知をslackのwebhookに通知してくれるやつ。
 下記のリポジトリの移植なのでtypescriptとしてはガバがあるかも…
   - https://github.com/limit7412/github_notifications_slack
