@@ -1,8 +1,8 @@
-import { CheckUsecase } from './usecase'
+import { CheckUseCase } from './usecase'
 
 function myFunction() {
   Logger.log('start script.')
-  const uc = new CheckUsecase()
+  const uc = new CheckUseCase()
   uc.checkNotifications()
   Logger.log('finish script.')
 }

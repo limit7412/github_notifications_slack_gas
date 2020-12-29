@@ -63,12 +63,12 @@ export class SlackRepository {
     this.url = url
   }
 
-  sendPost(post: SlackAttachments) {
+  sendPost(attachments: SlackAttachments[]) {
     UrlFetchApp.fetch(this.url, {
       "method": "post",
       "contentType": "application/json",
       "payload": JSON.stringify({
-        attachments: [post],
+        attachments: attachments,
       }),
       "muteHttpExceptions": true
     })
