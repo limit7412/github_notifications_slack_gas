@@ -1,14 +1,14 @@
 import { GithubRepository, SlackRepository } from './repository'
+import { SlackAttachments } from './models'
 
-export class CheckUsecase {
+export class CheckUseCase {
   checkNotifications() {
-    const propertys = PropertiesService.getScriptProperties()
-    const githubRepo = new GithubRepository(propertys.getProperty('github_token'))
-    const slackRepo = new SlackRepository(propertys.getProperty('slack_webhook'))
+    const property = PropertiesService.getScriptProperties()
+    const githubRepo = new GithubRepository(property.getProperty('github_token'))
 
-    const notifications = githubRepo.getNotifications()
-    notifications
-      .forEach(item => {
+    const notifications: SlackAttachments[] = githubRepo
+      .getNotifications()
+      .map(item => {
         const comment = githubRepo.getComment(item.subject)
         const mention = [
           "assign",
@@ -22,7 +22,8 @@ export class CheckUsecase {
         ].indexOf(item.reason) >= 0 ? "<!here> " : ""
 
         const subject = `[${item.subject.type}] notice from github.`
-        slackRepo.sendPost({
+
+        return {
           fallback: subject,
           author_name: comment.user != null ? comment.user.login : "",
           author_icon: comment.user != null ? comment.user.avatar_url : "",
@@ -34,10 +35,13 @@ export class CheckUsecase {
           text: comment.body,
           footer: item.repository != null ? item.repository.full_name : "github",
           footer_icon: item.repository != null ? item.repository.owner.avatar_url : "",
-        })
+        }
       })
 
     if (notifications.length > 0) {
+      const slackRepo = new SlackRepository(property.getProperty('slack_webhook'))
+      slackRepo.sendPost(notifications)
+
       githubRepo.notificationToRead()
     }
   }
